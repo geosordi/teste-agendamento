@@ -8,9 +8,12 @@ provider:
   region: us-east-1
   stage: ${opt:stage, 'dev'}
   memorySize: 256
-  timeout: 10
+  timeout: 30
+  environment:
+    ANTHROPIC_API_KEY: ${env:ANTHROPIC_API_KEY, ''}
 
 plugins:
+  - serverless-dotenv-plugin
   - serverless-esbuild
   - serverless-offline
 
@@ -35,4 +38,11 @@ functions:
     events:
       - http:
           path: agendamento
+          method: post
+
+  triagem:
+    handler: src/handlers/triagem.handler
+    events:
+      - http:
+          path: triagem
           method: post
