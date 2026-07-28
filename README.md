@@ -205,8 +205,8 @@ src/
 
 tests/
 ├── helpers/                # Utilitários compartilhados pelos testes (ex: make-event)
-├── integration/            # 6 testes de integração (fluxos completos)
-└── unit/                   # 29 testes unitários (cada camada isolada)
+├── integration/            # Testes de integração (fluxos completos)
+└── unit/                   # Testes unitários (cada camada isolada)
     ├── controllers/
     ├── decorators/
     ├── handlers/
