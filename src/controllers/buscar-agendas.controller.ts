@@ -8,7 +8,7 @@ export class BuscarAgendasController {
 
   @HandleHttpErrors()
   @Log()
-  public async buscarMedicos(): Promise<HttpResponse<BuscarAgendasResponse>> {
+  public async buscarAgendas(): Promise<HttpResponse<BuscarAgendasResponse>> {
     const resultado = this.service.execute();
     return jsonResponse(200, resultado);
   }
