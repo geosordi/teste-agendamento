@@ -25,7 +25,11 @@ nvm use
 # 1. Instalar as dependências
 yarn install
 
-# 2. Subir a API localmente (serverless-offline simula o API Gateway + Lambda)
+# 2. Criar o arquivo de variáveis de ambiente
+cp .env.example .env
+# Edite o .env e preencha sua ANTHROPIC_API_KEY
+
+# 3. Subir a API localmente (serverless-offline simula o API Gateway + Lambda)
 yarn start
 ```
 
@@ -33,6 +37,9 @@ A API sobe em **http://localhost:3000** e os endpoints ficam sob o prefixo do st
 
 - `GET  http://localhost:3000/dev/agendas`
 - `POST http://localhost:3000/dev/agendamento`
+- `POST http://localhost:3000/dev/triagem`
+
+> O endpoint `/triagem` requer a variável `ANTHROPIC_API_KEY` preenchida no `.env`. Sem ela, a chamada à API da Anthropic falha com erro `502`.
 
 ---
 
@@ -106,6 +113,36 @@ curl -X POST http://localhost:3000/dev/agendamento \
 | Horário já ocupado / indisponível          | `409`  | `{ "erro": "Horario indisponivel", "mensagem": "O horario ..." }` |
 
 > O controle de conflito é feito **em memória**: ao registrar um agendamento, o horário é removido da lista de disponíveis do médico. Uma segunda tentativa no mesmo horário retorna `409`.
+
+### 3) `POST /triagem` — Sugestão de especialidade médica por IA
+
+Recebe a descrição dos sintomas em texto livre e retorna a especialidade médica sugerida pelo modelo `claude-haiku-4-5-20251001` (Anthropic).
+
+> Requer a variável de ambiente `ANTHROPIC_API_KEY` configurada.
+
+**Requisição:**
+
+```bash
+curl -X POST http://localhost:3000/dev/triagem \
+  -H "Content-Type: application/json" \
+  -d '{ "sintomas": "dor no peito e falta de ar ao subir escadas" }'
+```
+
+**Resposta `200 OK`:**
+
+```json
+{
+  "especialidade_sugerida": "Cardiologista",
+  "justificativa": "Os sintomas descritos, como dor no peito e falta de ar, são indicativos de condições cardiovasculares que requerem avaliação de um cardiologista."
+}
+```
+
+**Possíveis erros:**
+
+| Situação | Status | Corpo |
+| --- | --- | --- |
+| Payload inválido (campo `sintomas` ausente/vazio) | `400` | `{ "erro": "Payload invalido", "mensagem": "..." }` |
+| Falha na chamada à API do modelo | `502` | `{ "erro": "Erro no servico de triagem", "mensagem": "..." }` |
 
 ---
 
@@ -183,5 +220,6 @@ tests/
 - **Node.js 20** / **TypeScript** (tipagem estrita, sem `any`)
 - **Serverless Framework 3** + **serverless-offline** + **serverless-esbuild**
 - **Joi** para validação de payload
-- **Jest** para testes unitários
+- **Anthropic SDK** (`@anthropic-ai/sdk`) para integração com o modelo de IA
+- **Jest** para testes unitários e de integração
 - **ESLint** + **Prettier**
