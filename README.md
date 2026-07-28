@@ -151,7 +151,7 @@ Ao final, o Serverless Framework exibe as URLs públicas dos endpoints no API Ga
 
 ---
 
-## 🗂️ Estrutura de pastas
+## Estrutura de pastas
 
 ```
 src/
@@ -178,7 +178,7 @@ tests/
     └── shared/
 ```
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **Node.js 20** / **TypeScript** (tipagem estrita, sem `any`)
 - **Serverless Framework 3** + **serverless-offline** + **serverless-esbuild**
