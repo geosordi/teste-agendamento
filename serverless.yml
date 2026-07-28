@@ -1,0 +1,31 @@
+service: teste-agendamento
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 10
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    target: node20
+    platform: node
+
+functions:
+  buscarAgendas:
+    handler: src/handlers/buscar-agendas.handler
+    events:
+      - http:
+          path: agendas
+          method: get
