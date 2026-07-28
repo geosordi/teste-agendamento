@@ -4,7 +4,6 @@ import { MedicoNaoEncontradoError } from '../../../src/domain/errors/medico-nao-
 import { InMemoryMedicoRepository } from '../../../src/repositories/in-memory-medico-repository';
 import { RegistrarAgendamentoService } from '../../../src/services/registrar-agendamento.service';
 
-
 describe('RegistrarAgendamentoService', () => {
   let repositorio: InMemoryMedicoRepository;
   let service: RegistrarAgendamentoService;

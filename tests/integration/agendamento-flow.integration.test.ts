@@ -86,9 +86,7 @@ describe('Integração: fluxo de agendamento', () => {
     const antes = await buscarAgendas();
     const totalAntes = JSON.parse(antes.body).medicos[0].horarios_disponiveis.length;
 
-    const bad = await registrarAgendamento(
-      makeEvent({ agendamento: { medico_id: 1 } }),
-    );
+    const bad = await registrarAgendamento(makeEvent({ agendamento: { medico_id: 1 } }));
     expect(bad.statusCode).toBe(400);
 
     const depois = await buscarAgendas();
