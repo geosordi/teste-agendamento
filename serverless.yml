@@ -29,3 +29,10 @@ functions:
       - http:
           path: agendas
           method: get
+
+  registrarAgendamento:
+    handler: src/handlers/registrar-agendamento.handler
+    events:
+      - http:
+          path: agendamento
+          method: post
