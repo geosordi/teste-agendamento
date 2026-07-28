@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: API (Serverless Offline)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/serverless/bin/serverless.js",
+      "args": ["offline"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "sourceMaps": true,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+    },
+  ]
+}
