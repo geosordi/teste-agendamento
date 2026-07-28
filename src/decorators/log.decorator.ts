@@ -1,7 +1,7 @@
 import { HttpResponse } from '../shared/http';
 import { ControllerMethod } from './types';
 
-export function LogExecution() {
+export function Log() {
   return function (
     _target: object,
     propertyKey: string | symbol,
