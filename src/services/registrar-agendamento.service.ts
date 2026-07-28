@@ -4,7 +4,6 @@ import { HorarioIndisponivelError } from '../domain/errors/horario-indisponivel-
 import { MedicoNaoEncontradoError } from '../domain/errors/medico-nao-encontrado-error';
 import { MedicoRepository } from '../repositories/medico-repository';
 
-
 export interface RegistrarAgendamentoResponse {
   mensagem: string;
   agendamento: Agendamento;
