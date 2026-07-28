@@ -21,5 +21,13 @@
       { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
     ]
   },
-  "ignorePatterns": ["node_modules", ".build", ".serverless", "coverage"]
+  "ignorePatterns": ["node_modules", ".build", ".serverless", "coverage"],
+  "overrides": [
+    {
+      "files": ["tests/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }
